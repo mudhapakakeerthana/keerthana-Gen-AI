@@ -6,47 +6,28 @@
   <title>About — NiveshIQ</title>
   <link rel="stylesheet" href="./style.css" />
 </head>
- <!-- Chatling Floating Chatbot -->
-<button class="chat-toggle" id="chatToggle" aria-label="Open chat">💬</button>
 
-<div class="chat-widget" id="chatWidget">
-  <div class="chat-bar">
-    <div>
-      <div class="chat-title">Support Agent</div>
-      <div class="chat-sub">Powered by Chatling</div>
+<body>
+  <!-- Chatling Floating Chatbot -->
+  <button class="chat-toggle" id="chatToggle" aria-label="Open chat">💬</button>
+
+  <div class="chat-widget" id="chatWidget">
+    <div class="chat-bar">
+      <div>
+        <div class="chat-title">Support Agent</div>
+        <div class="chat-sub">Powered by Chatling</div>
+      </div>
+      <button class="chat-close" id="chatClose" aria-label="Close chat">✕</button>
     </div>
-    <button class="chat-close" id="chatClose" aria-label="Close chat">✕</button>
+
+    <iframe
+      src="https://share.chatling.ai/s/S83Nzwyj4CQBMU5"
+      class="chat-frame"
+      loading="lazy"
+      title="Chatling Support"
+    ></iframe>
   </div>
 
-  <iframe
-    src="https://share.chatling.ai/s/S83Nzwyj4CQBMU5"
-    class="chat-frame"
-    loading="lazy"
-  ></iframe>
-</div>
-
-<script>
-  (function () {
-    const toggle = document.getElementById("chatToggle");
-    const widget = document.getElementById("chatWidget");
-    const close = document.getElementById("chatClose");
-
-    function openChat() { widget.classList.add("open"); }
-    function closeChat() { widget.classList.remove("open"); }
-
-    toggle.addEventListener("click", () => {
-      widget.classList.toggle("open");
-    });
-
-    close.addEventListener("click", closeChat);
-
-    // Optional: close on ESC
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeChat();
-    });
-  })();
-</script>
-<body>
   <header class="topbar">
     <div class="brand">
       <div class="logo">₹</div>
@@ -74,32 +55,33 @@
       <div class="prose">
         <h3>The Problem</h3>
         <p>
-          Indian retail investors often have to jump across multiple apps and websites to compare stocks, mutual funds, ETFs,
-          and indices. Many tools show raw numbers without context (risk, volatility, costs, drawdowns), making decisions harder
-          and less consistent.
+          Indian retail investors often jump across multiple apps and websites to compare stocks, mutual funds, ETFs,
+          and indices. Many tools present raw numbers without explaining risk, volatility, cost structure, or drawdowns,
+          which makes confident decision-making difficult.
         </p>
 
         <h3>The Solution</h3>
         <p>
-          NiveshIQ is designed as a unified, data-driven analysis layer: screen assets across categories, compare performance and
-          risk, and translate complex metrics into simple signals a retail investor can act on. The goal is to stay explainable:
-          every score has a “why”, not just an output.
+          NiveshIQ provides a unified, explainable analytics layer across asset classes. Investors can screen,
+          compare, and filter based on meaningful metrics while maintaining transparency. Every signal aims to
+          show context — not just a score.
         </p>
 
         <h3>What This Demo Includes</h3>
         <ul>
           <li>Cross-asset screener (stocks, mutual funds, ETFs, indices)</li>
-          <li>Watchlist starring + quick filtering and sorting</li>
+          <li>Watchlist starring with dynamic filtering and sorting</li>
           <li>Market context cards (index values and daily movement)</li>
-          <li>News/catalyst section (demo feed, ready for real API integration)</li>
+          <li>Risk Simulator (personalized filtering by tolerance + horizon)</li>
+          <li>Chatbot integration for guided exploration</li>
         </ul>
 
         <h3>Next Enhancements</h3>
         <ul>
-          <li>Real data hookups (NSE/BSE prices, AMFI NAV, ETF tracking error)</li>
-          <li>Portfolio import + rebalancing suggestions</li>
-          <li>Factor screens (quality/value/momentum) with explainable scoring</li>
-          <li>Risk alerts (drawdown, volatility spikes, concentration)</li>
+          <li>Live NSE/BSE/AMFI data integration</li>
+          <li>Portfolio import and allocation analysis</li>
+          <li>Factor-based explainable scoring models</li>
+          <li>Risk alerts (drawdown, volatility spikes, diversification gaps)</li>
         </ul>
 
         <div class="cta-row">
@@ -109,5 +91,30 @@
       </div>
     </section>
   </main>
+
+  <!-- Chatbot toggle script -->
+  <script>
+    (function () {
+      const toggle = document.getElementById("chatToggle");
+      const widget = document.getElementById("chatWidget");
+      const close = document.getElementById("chatClose");
+
+      if (!toggle || !widget || !close) return;
+
+      function closeChat() {
+        widget.classList.remove("open");
+      }
+
+      toggle.addEventListener("click", () => {
+        widget.classList.toggle("open");
+      });
+
+      close.addEventListener("click", closeChat);
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeChat();
+      });
+    })();
+  </script>
 </body>
 </html>
