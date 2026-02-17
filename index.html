@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NiveshIQ — India-first Investing Analytics</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">₹</div>
+      <div>
+        <div class="brand-title">NiveshIQ</div>
+        <div class="brand-sub">India-first investing analytics</div>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <span class="pill">NSE · BSE · AMFI · MF · ETF</span>
+      <a class="btn primary" href="#screener">Explore</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-left">
+        <span class="tag">Data-driven investing for India</span>
+        <h1>Analyze stocks, mutual funds, ETFs, and indices — with clarity.</h1>
+        <p>
+          A clean, explainable dashboard for Indian retail investors. This is a GitHub-Pages friendly
+          version (no Node, no installs).
+        </p>
+
+        <div class="hero-cta">
+          <button class="btn primary" onclick="quickSearch('NIFTY')">Explore indices</button>
+          <button class="btn" onclick="quickSearch('ETF')">Find ETFs</button>
+          <button class="btn ghost" onclick="openModal()">AI Insights</button>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="mini">
+          <div>
+            <div class="mini-title">NIFTY 50</div>
+            <div class="mini-sub">Index</div>
+          </div>
+          <div class="mini-right">
+            <div class="mini-val" id="niftyVal">—</div>
+            <span class="badge up" id="niftyChg">—</span>
+          </div>
+        </div>
+
+        <div class="mini">
+          <div>
+            <div class="mini-title">SENSEX</div>
+            <div class="mini-sub">Index</div>
+          </div>
+          <div class="mini-right">
+            <div class="mini-val" id="sensexVal">—</div>
+            <span class="badge flat" id="sensexChg">—</span>
+          </div>
+        </div>
+
+        <div class="mini">
+          <div>
+            <div class="mini-title">Market Mood</div>
+            <div class="mini-sub">Breadth + momentum</div>
+          </div>
+          <div class="mini-right">
+            <div class="mini-val">Constructive</div>
+            <span class="badge">Score 68</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <section class="card" id="screener">
+        <div class="card-head">
+          <div>
+            <h2>Asset Screener</h2>
+            <p>Search across stocks, mutual funds, ETFs, and indices.</p>
+          </div>
+        </div>
+
+        <div class="filters">
+          <input id="q" class="input" placeholder="Search symbol, name, sector…" oninput="render()" />
+          <select id="type" class="select" onchange="render()">
+            <option value="All">All</option>
+            <option value="Stock">Stocks</option>
+            <option value="Mutual Fund">Mutual Funds</option>
+            <option value="ETF">ETFs</option>
+            <option value="Index">Indices</option>
+          </select>
+          <select id="risk" class="select" onchange="render()">
+            <option value="All">All risk</option>
+            <option value="Low">Low</option>
+            <option value="Moderate">Moderate</option>
+            <option value="High">High</option>
+          </select>
+          <select id="sort" class="select" onchange="render()">
+            <option value="Relevance">Relevance</option>
+            <option value="Change">Daily % change</option>
+            <option value="Price">Price</option>
+            <option value="3Y CAGR">3Y CAGR</option>
+            <option value="Expense">Expense ratio</option>
+          </select>
+        </div>
+
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>★</th>
+                <th>Asset</th>
+                <th>Type</th>
+                <th class="right">Price / AUM</th>
+                <th class="right">Daily</th>
+                <th class="right">3Y CAGR</th>
+                <th class="right">Risk</th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <aside class="side">
+        <section class="card">
+          <div class="card-head">
+            <div>
+              <h2>News & catalysts</h2>
+              <p>Demo feed. Connect a provider later.</p>
+            </div>
+          </div>
+          <div id="news" class="news"></div>
+        </section>
+
+        <section class="card dashed">
+          <div class="card-head">
+            <div>
+              <h2>Disclaimer</h2>
+              <p>Education only. Not investment advice.</p>
+            </div>
+          </div>
+          <div class="muted small">
+            Always verify prices and facts from official sources (NSE/BSE/AMFI) before acting.
+          </div>
+        </section>
+      </aside>
+    </section>
+
+    <footer class="footer">
+      <div class="muted">© <span id="yr"></span> NiveshIQ (GitHub Pages)</div>
+      <div class="pills">
+        <span class="pill">Security-first</span>
+        <span class="pill">Explainable metrics</span>
+        <span class="pill">India-first coverage</span>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3>AI Insights (Demo)</h3>
+        <button class="btn" onclick="closeModal()">Close</button>
+      </div>
+      <p class="muted">
+        In production: show sources, log suggestions, add suitability checks, and require user confirmation.
+      </p>
+      <div class="modal-grid">
+        <div class="mini big">
+          <div>
+            <div class="mini-title">Signal</div>
+            <div class="mini-val">Quality tilt</div>
+            <div class="mini-sub">Prefer low-debt, high-ROE when rates are sticky.</div>
+          </div>
+        </div>
+        <div class="mini big">
+          <div>
+            <div class="mini-title">Action</div>
+            <div class="mini-val">Run a screen</div>
+            <div class="mini-sub">Filter by 3Y CAGR + drawdown resilience + expense.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
