@@ -6,13 +6,46 @@
   <title>About — NiveshIQ</title>
   <link rel="stylesheet" href="./style.css" />
 </head>
-  <!-- Chatling Chatbot -->
-<div class="chatbot-float">
-  <iframe 
+ <!-- Chatling Floating Chatbot -->
+<button class="chat-toggle" id="chatToggle" aria-label="Open chat">💬</button>
+
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-bar">
+    <div>
+      <div class="chat-title">Support Agent</div>
+      <div class="chat-sub">Powered by Chatling</div>
+    </div>
+    <button class="chat-close" id="chatClose" aria-label="Close chat">✕</button>
+  </div>
+
+  <iframe
     src="https://share.chatling.ai/s/S83Nzwyj4CQBMU5"
-    frameborder="0">
-  </iframe>
+    class="chat-frame"
+    loading="lazy"
+  ></iframe>
 </div>
+
+<script>
+  (function () {
+    const toggle = document.getElementById("chatToggle");
+    const widget = document.getElementById("chatWidget");
+    const close = document.getElementById("chatClose");
+
+    function openChat() { widget.classList.add("open"); }
+    function closeChat() { widget.classList.remove("open"); }
+
+    toggle.addEventListener("click", () => {
+      widget.classList.toggle("open");
+    });
+
+    close.addEventListener("click", closeChat);
+
+    // Optional: close on ESC
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeChat();
+    });
+  })();
+</script>
 <body>
   <header class="topbar">
     <div class="brand">
