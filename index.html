@@ -6,47 +6,28 @@
   <title>NiveshIQ — India-first Investing Analytics</title>
   <link rel="stylesheet" href="./style.css" />
 </head>
- <!-- Chatling Floating Chatbot -->
-<button class="chat-toggle" id="chatToggle" aria-label="Open chat">💬</button>
 
-<div class="chat-widget" id="chatWidget">
-  <div class="chat-bar">
-    <div>
-      <div class="chat-title">Support Agent</div>
-      <div class="chat-sub">Powered by Chatling</div>
+<body>
+  <!-- Chatling Floating Chatbot (button + popup) -->
+  <button class="chat-toggle" id="chatToggle" aria-label="Open chat">💬</button>
+
+  <div class="chat-widget" id="chatWidget" aria-label="Chat widget">
+    <div class="chat-bar">
+      <div>
+        <div class="chat-title">Support Agent</div>
+        <div class="chat-sub">Powered by Chatling</div>
+      </div>
+      <button class="chat-close" id="chatClose" aria-label="Close chat">✕</button>
     </div>
-    <button class="chat-close" id="chatClose" aria-label="Close chat">✕</button>
+
+    <iframe
+      src="https://share.chatling.ai/s/S83Nzwyj4CQBMU5"
+      class="chat-frame"
+      loading="lazy"
+      title="Chatling Support Agent"
+    ></iframe>
   </div>
 
-  <iframe
-    src="https://share.chatling.ai/s/S83Nzwyj4CQBMU5"
-    class="chat-frame"
-    loading="lazy"
-  ></iframe>
-</div>
-
-<script>
-  (function () {
-    const toggle = document.getElementById("chatToggle");
-    const widget = document.getElementById("chatWidget");
-    const close = document.getElementById("chatClose");
-
-    function openChat() { widget.classList.add("open"); }
-    function closeChat() { widget.classList.remove("open"); }
-
-    toggle.addEventListener("click", () => {
-      widget.classList.toggle("open");
-    });
-
-    close.addEventListener("click", closeChat);
-
-    // Optional: close on ESC
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeChat();
-    });
-  })();
-</script>
-<body>
   <header class="topbar">
     <div class="brand">
       <div class="logo">₹</div>
@@ -57,55 +38,15 @@
     </div>
 
     <div class="top-actions">
-       <span class="pill">NSE · BSE · AMFI · MF · ETF</span>
+      <span class="pill">NSE · BSE · AMFI · MF · ETF</span>
       <a class="btn" href="./about.html">About</a>
       <a class="btn primary" href="#screener">Explore</a>
     </div>
   </header>
 
   <main class="container">
+    <!-- HERO -->
     <section class="hero">
-      <section class="card xfactor" id="risk-sim">
-  <div class="card-head">
-    <div>
-      <h2>X-Factor: Risk Simulator</h2>
-      <p>Adjust your risk appetite and instantly tailor the screener.</p>
-    </div>
-    <div class="scorebox">
-      <div class="scorelabel">Risk Score</div>
-      <div class="score" id="riskScore">50</div>
-    </div>
-  </div>
-
-  <div class="xf-grid">
-    <div>
-      <label class="lbl">Risk tolerance</label>
-      <input id="riskTol" class="range" type="range" min="1" max="10" value="5" />
-      <div class="hint"><span id="riskTolVal">5</span>/10 (higher = more aggressive)</div>
-    </div>
-
-    <div>
-      <label class="lbl">Time horizon</label>
-      <select id="horizon" class="select">
-        <option value="short">0–1 year</option>
-        <option value="mid" selected>1–3 years</option>
-        <option value="long">3+ years</option>
-      </select>
-      <div class="hint">Longer horizons can tolerate more volatility.</div>
-    </div>
-
-    <div>
-      <label class="lbl">Apply to screener</label>
-      <button class="btn primary" onclick="applyRiskPreset()">Apply filter</button>
-      <button class="btn" onclick="resetRiskPreset()">Reset</button>
-      <div class="hint" id="riskMsg">Tip: move the slider and apply.</div>
-    </div>
-  </div>
-</section>
-      <video autoplay muted loop playsinline class="hero-video">
-  <source src="./hero.mp3.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
       <div class="hero-left">
         <span class="tag">Data-driven investing for India</span>
         <h1>Analyze stocks, mutual funds, ETFs, and indices — with clarity.</h1>
@@ -122,6 +63,11 @@
       </div>
 
       <div class="hero-right">
+        <video autoplay muted loop playsinline class="hero-video">
+          <source src="./hero.mp3.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+
         <div class="mini">
           <div>
             <div class="mini-title">NIFTY 50</div>
@@ -157,6 +103,46 @@
       </div>
     </section>
 
+    <!-- X-FACTOR (UNDER HERO) -->
+    <section class="card xfactor" id="risk-sim">
+      <div class="card-head">
+        <div>
+          <h2>X-Factor: Risk Simulator</h2>
+          <p>Adjust your risk appetite and instantly tailor the screener.</p>
+        </div>
+        <div class="scorebox">
+          <div class="scorelabel">Risk Score</div>
+          <div class="score" id="riskScore">50</div>
+        </div>
+      </div>
+
+      <div class="xf-grid">
+        <div>
+          <label class="lbl">Risk tolerance</label>
+          <input id="riskTol" class="range" type="range" min="1" max="10" value="5" />
+          <div class="hint"><span id="riskTolVal">5</span>/10 (higher = more aggressive)</div>
+        </div>
+
+        <div>
+          <label class="lbl">Time horizon</label>
+          <select id="horizon" class="select">
+            <option value="short">0–1 year</option>
+            <option value="mid" selected>1–3 years</option>
+            <option value="long">3+ years</option>
+          </select>
+          <div class="hint">Longer horizons can tolerate more volatility.</div>
+        </div>
+
+        <div>
+          <label class="lbl">Apply to screener</label>
+          <button class="btn primary" onclick="applyRiskPreset()">Apply filter</button>
+          <button class="btn" onclick="resetRiskPreset()">Reset</button>
+          <div class="hint" id="riskMsg">Tip: move the slider and apply.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAIN GRID -->
     <section class="grid">
       <section class="card" id="screener">
         <div class="card-head">
@@ -233,6 +219,12 @@
       </aside>
     </section>
 
+    <!-- X-FACTOR DESCRIPTION (UNDER 50 WORDS) -->
+    <div class="xf-desc">
+      X-Factor: The Risk Simulator lets you set risk tolerance and time horizon, then auto-filters the screener to match.
+      It makes the demo interactive and shows how personalization could guide investors toward suitable products.
+    </div>
+
     <footer class="footer">
       <div class="muted">© <span id="yr"></span> NiveshIQ (GitHub Pages)</div>
       <div class="pills">
@@ -272,10 +264,29 @@
     </div>
   </div>
 
+  <!-- Chatbot toggle logic -->
+  <script>
+    (function () {
+      const toggle = document.getElementById("chatToggle");
+      const widget = document.getElementById("chatWidget");
+      const close = document.getElementById("chatClose");
+
+      if (!toggle || !widget || !close) return;
+
+      function closeChat() { widget.classList.remove("open"); }
+
+      toggle.addEventListener("click", () => {
+        widget.classList.toggle("open");
+      });
+
+      close.addEventListener("click", closeChat);
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeChat();
+      });
+    })();
+  </script>
+
   <script src="./app.js"></script>
 </body>
 </html>
-<div class="xf-desc">
-  X-Factor: The Risk Simulator lets you set risk tolerance and time horizon, then auto-filters the screener to match.
-  It makes the demo interactive and shows how personalization could guide investors toward suitable products.
-</div>
