@@ -163,3 +163,74 @@ window.closeModal = closeModal;
 setIndexHeader();
 renderNews();
 render();
+function computeRiskScore(){
+  const tol = Number(document.getElementById("riskTol").value || 5);
+  const horizon = document.getElementById("horizon").value;
+
+  let horizonBoost = 0;
+  if(horizon === "short") horizonBoost = -10;
+  if(horizon === "mid") horizonBoost = 0;
+  if(horizon === "long") horizonBoost = 10;
+
+  // Score 0..100
+  let score = Math.round((tol * 10) + horizonBoost);
+  score = Math.max(0, Math.min(100, score));
+  return score;
+}
+
+function riskLabel(score){
+  if(score <= 35) return "Low";
+  if(score <= 70) return "Moderate";
+  return "High";
+}
+
+function updateRiskUI(){
+  const tolEl = document.getElementById("riskTol");
+  const tol = Number(tolEl.value || 5);
+  const score = computeRiskScore();
+
+  document.getElementById("riskTolVal").textContent = tol;
+  const scoreEl = document.getElementById("riskScore");
+  scoreEl.textContent = score;
+  scoreEl.classList.remove("pop");
+  void scoreEl.offsetWidth; // reflow for animation
+  scoreEl.classList.add("pop");
+
+  document.getElementById("riskMsg").textContent =
+    `Suggested screener risk: ${riskLabel(score)} (score ${score}).`;
+}
+
+function applyRiskPreset(){
+  const score = computeRiskScore();
+  const label = riskLabel(score);
+
+  // Set existing screener risk dropdown if present
+  const riskSelect = document.getElementById("risk");
+  if(riskSelect){
+    riskSelect.value = label;
+  }
+
+  render();
+  document.getElementById("screener").scrollIntoView({behavior:"smooth"});
+}
+
+function resetRiskPreset(){
+  const riskSelect = document.getElementById("risk");
+  if(riskSelect) riskSelect.value = "All";
+  document.getElementById("riskTol").value = 5;
+  document.getElementById("horizon").value = "mid";
+  updateRiskUI();
+  render();
+}
+
+window.applyRiskPreset = applyRiskPreset;
+window.resetRiskPreset = resetRiskPreset;
+
+// Hook up listeners if widget exists
+const rt = document.getElementById("riskTol");
+const hz = document.getElementById("horizon");
+if(rt && hz){
+  rt.addEventListener("input", updateRiskUI);
+  hz.addEventListener("change", updateRiskUI);
+  updateRiskUI();
+}
