@@ -25,6 +25,43 @@
 
   <main class="container">
     <section class="hero">
+      <section class="card xfactor" id="risk-sim">
+  <div class="card-head">
+    <div>
+      <h2>X-Factor: Risk Simulator</h2>
+      <p>Adjust your risk appetite and instantly tailor the screener.</p>
+    </div>
+    <div class="scorebox">
+      <div class="scorelabel">Risk Score</div>
+      <div class="score" id="riskScore">50</div>
+    </div>
+  </div>
+
+  <div class="xf-grid">
+    <div>
+      <label class="lbl">Risk tolerance</label>
+      <input id="riskTol" class="range" type="range" min="1" max="10" value="5" />
+      <div class="hint"><span id="riskTolVal">5</span>/10 (higher = more aggressive)</div>
+    </div>
+
+    <div>
+      <label class="lbl">Time horizon</label>
+      <select id="horizon" class="select">
+        <option value="short">0–1 year</option>
+        <option value="mid" selected>1–3 years</option>
+        <option value="long">3+ years</option>
+      </select>
+      <div class="hint">Longer horizons can tolerate more volatility.</div>
+    </div>
+
+    <div>
+      <label class="lbl">Apply to screener</label>
+      <button class="btn primary" onclick="applyRiskPreset()">Apply filter</button>
+      <button class="btn" onclick="resetRiskPreset()">Reset</button>
+      <div class="hint" id="riskMsg">Tip: move the slider and apply.</div>
+    </div>
+  </div>
+</section>
       <video autoplay muted loop playsinline class="hero-video">
   <source src="./hero.mp3.mp4" type="video/mp4">
   Your browser does not support the video tag.
@@ -198,3 +235,7 @@
   <script src="./app.js"></script>
 </body>
 </html>
+<div class="xf-desc">
+  X-Factor: The Risk Simulator lets you set risk tolerance and time horizon, then auto-filters the screener to match.
+  It makes the demo interactive and shows how personalization could guide investors toward suitable products.
+</div>
